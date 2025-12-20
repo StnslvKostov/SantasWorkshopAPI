@@ -19,9 +19,11 @@ public class Gift {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Enumerated(EnumType.STRING)
     private CategoryEnum category;
     private Integer targetAge;
     private boolean isWrapped;
+    @Enumerated(EnumType.STRING)
     private GiftStatusEnum giftStatus;
     private LocalDateTime createdAt;
 

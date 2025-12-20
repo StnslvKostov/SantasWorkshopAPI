@@ -21,6 +21,13 @@ public class Elf {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Enumerated(EnumType.STRING)
     private SkillLevelEnum skillLevel;
-    private List<Long> assignedGiftId;
+    @ElementCollection
+    @CollectionTable(
+            name = "elf_assigned_gifts",
+            joinColumns = @JoinColumn(name = "elf_id")
+    )
+    @Column(name = "gift_id", nullable = false)
+    private List<Long> assignedGiftIds;
 }

@@ -21,7 +21,14 @@ public class Delivery {
     private Long id;
     private String address;
     private String recipientName;
+    @ElementCollection
+    @CollectionTable(
+            name = "delivery_gifts",
+            joinColumns = @JoinColumn(name = "delivery_id")
+    )
+    @Column(name = "gift_id", nullable = false)
     private List<Long> giftIds;
+    @Enumerated(EnumType.STRING)
     private DeliveryStatusEnum deliveryStatus;
     private LocalDateTime estimatedArrival;
 }
