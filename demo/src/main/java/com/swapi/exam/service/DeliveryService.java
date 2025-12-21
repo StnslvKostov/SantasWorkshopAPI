@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class DeliveryService {
@@ -39,5 +40,8 @@ public class DeliveryService {
         }
         delivery.setGiftIds(deliveryDTO.getGiftIds());
         return deliveryRepository.save(delivery);
+    }
+    public List<Delivery> getAllDeliveries(){
+        return deliveryRepository.findAll();
     }
 }
