@@ -42,4 +42,17 @@ public class ElfController {
         elfService.deleteElf(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+    @PostMapping("/{elfId}/assign/{giftId}")
+    public ResponseEntity AssignGiftElf(@PathVariable long elfId, @PathVariable long giftId){
+
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(elfService.assignedGiftToElf(elfId, giftId));
+        }catch (ClassNotFoundException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+
+    }
 }
