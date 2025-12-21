@@ -15,7 +15,6 @@ public class GiftDTO {
     private Integer targetAge;
     private boolean isWrapped;
     private GiftStatusEnum giftStatus;
-    private LocalDateTime createdAt;
 
     public Long getId() {
         return id;
@@ -65,11 +64,4 @@ public class GiftDTO {
         this.giftStatus = giftStatus;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
 }

@@ -13,8 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Getter
-@Setter
 @Table(name = "elf")
 public class Elf {
     @Id
@@ -30,4 +28,36 @@ public class Elf {
     )
     @Column(name = "gift_id", nullable = false)
     private List<Long> assignedGiftIds;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public SkillLevelEnum getSkillLevel() {
+        return skillLevel;
+    }
+
+    public void setSkillLevel(SkillLevelEnum skillLevel) {
+        this.skillLevel = skillLevel;
+    }
+
+    public List<Long> getAssignedGiftIds() {
+        return assignedGiftIds;
+    }
+
+    public void setAssignedGiftIds(List<Long> assignedGiftIds) {
+        this.assignedGiftIds = assignedGiftIds;
+    }
 }

@@ -12,8 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Getter
-@Setter
 @Table(name = "elf")
 public class Delivery {
     @Id
@@ -31,4 +29,52 @@ public class Delivery {
     @Enumerated(EnumType.STRING)
     private DeliveryStatusEnum deliveryStatus;
     private LocalDateTime estimatedArrival;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getRecipientName() {
+        return recipientName;
+    }
+
+    public void setRecipientName(String recipientName) {
+        this.recipientName = recipientName;
+    }
+
+    public List<Long> getGiftIds() {
+        return giftIds;
+    }
+
+    public void setGiftIds(List<Long> giftIds) {
+        this.giftIds = giftIds;
+    }
+
+    public DeliveryStatusEnum getDeliveryStatus() {
+        return deliveryStatus;
+    }
+
+    public void setDeliveryStatus(DeliveryStatusEnum deliveryStatus) {
+        this.deliveryStatus = deliveryStatus;
+    }
+
+    public LocalDateTime getEstimatedArrival() {
+        return estimatedArrival;
+    }
+
+    public void setEstimatedArrival(LocalDateTime estimatedArrival) {
+        this.estimatedArrival = estimatedArrival;
+    }
 }
