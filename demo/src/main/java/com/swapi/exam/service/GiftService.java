@@ -91,4 +91,10 @@ public class GiftService {
     public void deleteGift(long id){
         giftRepository.deleteById(id);
     }
+
+    public void updateGiftStatus(long id, GiftStatusEnum status){
+        Gift gift = giftRepository.findById(id).get();
+        gift.setGiftStatus(status);
+        giftRepository.save(gift);
+    }
 }
