@@ -46,4 +46,14 @@ public class GiftController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+    @PatchMapping("/{id}/wrap")
+
+    public ResponseEntity<Gift> wrapGift(@PathVariable long id){
+
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(giftService.wrapGift(id));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 }

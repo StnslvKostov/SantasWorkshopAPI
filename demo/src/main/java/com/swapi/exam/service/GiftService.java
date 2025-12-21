@@ -83,5 +83,9 @@ public class GiftService {
         updateGift.setWrapped(giftDTO.isWrapped());
         return giftRepository.save(updateGift);
     }
+    public Gift wrapGift(long id) throws ClassNotFoundException{
+        Gift wrapGift = getGiftById(id);
+        wrapGift.setWrapped(true);
+        return giftRepository.save(wrapGift);
+    }
 }
-
