@@ -44,4 +44,17 @@ public class DeliveryService {
     public List<Delivery> getAllDeliveries(){
         return deliveryRepository.findAll();
     }
+    public void updateDeliveryStatus(long id, DeliveryDTO deliveryDTO) throws IllegalArgumentException{
+        Delivery delivery = deliveryRepository.findById(id).get();
+        if(delivery.getDeliveryStatus() == DeliveryStatusEnum.DELIVERED && deliveryDTO.getDeliveryStatus() == DeliveryStatusEnum.PLANNED){
+            throw new IllegalArgumentException();
+        }
+        delivery.setDeliveryStatus(deliveryDTO.getDeliveryStatus());
+        if(delivery.getDeliveryStatus() == DeliveryStatusEnum.DELIVERED){
+            for (long giftId: delivery.getGiftIds()) {
+                giftService.updateGiftStatus(giftId, GiftStatusEnum.DELIVERED);
+            }
+        }
+        deliveryRepository.save(delivery);
+    }
 }

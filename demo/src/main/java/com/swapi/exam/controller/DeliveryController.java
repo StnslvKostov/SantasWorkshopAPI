@@ -28,4 +28,14 @@ public class DeliveryController {
     public ResponseEntity<List<Delivery>> getAllDeliveries(){
         return ResponseEntity.status(HttpStatus.OK).body(deliveryService.getAllDeliveries());
     }
+    @PatchMapping("/{id}/status")
+    public ResponseEntity updateDeliveryStatus(@PathVariable long id, @RequestBody DeliveryDTO deliveryDTO){
+
+        try{
+            deliveryService.updateDeliveryStatus(id, deliveryDTO);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+    }
 }
