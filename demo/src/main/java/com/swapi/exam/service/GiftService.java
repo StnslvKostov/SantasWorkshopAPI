@@ -88,4 +88,7 @@ public class GiftService {
         wrapGift.setWrapped(true);
         return giftRepository.save(wrapGift);
     }
+    public void deleteGift(long id){
+        giftRepository.deleteById(id);
+    }
 }

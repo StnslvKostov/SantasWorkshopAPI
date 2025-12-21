@@ -56,4 +56,10 @@ public class GiftController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+    @DeleteMapping("/{id}")
+
+    public ResponseEntity deleteGift(@PathVariable long id){
+        giftService.deleteGift(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }
