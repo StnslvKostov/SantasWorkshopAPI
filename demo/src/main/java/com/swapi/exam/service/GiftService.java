@@ -6,7 +6,10 @@ import com.swapi.exam.repository.GiftRepository;
 import com.swapi.exam.util.enums.CategoryEnum;
 import com.swapi.exam.util.enums.GiftStatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
@@ -68,5 +71,17 @@ public class GiftService {
             return listGifts;
         }
     }
+    public Gift getGiftById(long id) throws ClassNotFoundException {
+        return giftRepository.findById(id).orElseThrow(ClassNotFoundException::new);
     }
+    public Gift updateGiftByID(long id, GiftDTO giftDTO) throws ClassNotFoundException {
+        Gift updateGift = getGiftById(id);
+        updateGift.setTargetAge(giftDTO.getTargetAge());
+        updateGift.setGiftStatus(giftDTO.getGiftStatus());
+        updateGift.setName(giftDTO.getName());
+        updateGift.setCategory(giftDTO.getCategory());
+        updateGift.setWrapped(giftDTO.isWrapped());
+        return giftRepository.save(updateGift);
+    }
+}
 

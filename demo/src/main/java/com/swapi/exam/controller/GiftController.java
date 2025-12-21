@@ -26,4 +26,24 @@ public class GiftController {
     public ResponseEntity<List<Gift>> gifts(@RequestParam(required = false) String status, @RequestParam(required = false) String category, @RequestParam(required = false) String wrapped, @RequestParam(required = false) String size, @RequestParam(required = false) String page, @RequestParam(required = false) String sort){
         return ResponseEntity.status(HttpStatus.OK).body(giftService.getAll(status, category, wrapped, size, page, sort));
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Gift> getById(@PathVariable long id){
+
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(giftService.getGiftById(id));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+    @PutMapping("/{id}")
+
+    public ResponseEntity<Gift> updateById(@PathVariable long id, @RequestBody GiftDTO giftDTO){
+
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(giftService.updateGiftByID(id, giftDTO));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 }
