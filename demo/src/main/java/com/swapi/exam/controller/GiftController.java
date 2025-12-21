@@ -23,7 +23,7 @@ public class GiftController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Gift>> gifts(@RequestParam(required = false) String status, @RequestParam(required = false) String category, @RequestParam(required = false) String wrapped, @RequestParam(required = false) String size, @RequestParam(required = false) String page, @RequestParam(required = false) String sort){
+    public ResponseEntity<List<Gift>> getallGifts(@RequestParam(required = false) String status, @RequestParam(required = false) String category, @RequestParam(required = false) String wrapped, @RequestParam(required = false) String size, @RequestParam(required = false) String page, @RequestParam(required = false) String sort){
         return ResponseEntity.status(HttpStatus.OK).body(giftService.getAll(status, category, wrapped, size, page, sort));
     }
 
