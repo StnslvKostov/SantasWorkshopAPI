@@ -26,12 +26,9 @@ public class UserController {
         }
     }
     @PostMapping("/login")
-    public ResponseEntity login (@RequestBody UserDTO userDTO){
-        try{
-            userService.login(userDTO);
-            return ResponseEntity.status(HttpStatus.OK).build();
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+    public ResponseEntity<String> login (@RequestBody UserDTO userDTO){
+        String token = userService.login(userDTO);
+
+        return ResponseEntity.ok(token);
     }
 }

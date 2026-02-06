@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,10 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private AuthenticationManager authenticationManager;
+    @Autowired
+    private JwtService jwtService;
+    @Autowired
+    private CustomUserDetailsService userDetailsService;
 
     public User register(UserDTO dto) {
         if (userRepository.existsByUsername(dto.getUsername())) {
@@ -34,13 +39,18 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public void login(UserDTO dto) { //Пробвам с войд вместо да връща User, както e при register. Не знам кое е по-добре.
-        Authentication authentication = new UsernamePasswordAuthenticationToken(
-                dto.getUsername(),
-                dto.getPassword()
+    public String login(UserDTO dto) {
+
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        dto.getUsername(),
+                        dto.getPassword()
+                )
         );
 
-        authenticationManager.authenticate(authentication);
-        // ако е грешна паролата → Exception
+        UserDetails user =
+                userDetailsService.loadUserByUsername(dto.getUsername());
+
+        return jwtService.generateToken(user);
     }
 }
