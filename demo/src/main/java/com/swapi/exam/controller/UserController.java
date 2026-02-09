@@ -3,6 +3,7 @@ package com.swapi.exam.controller;
 import com.swapi.exam.model.DTO.UserDTO;
 import com.swapi.exam.model.User;
 import com.swapi.exam.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class UserController {
     @Autowired
     UserService userService;
     @PostMapping("/register")
-    public ResponseEntity<User> register (@RequestBody UserDTO userDTO){
+    public ResponseEntity<User> register (@Valid @RequestBody UserDTO userDTO){
 
         try{
             return ResponseEntity.status(HttpStatus.CREATED).body(userService.register(userDTO));
@@ -26,7 +27,7 @@ public class UserController {
         }
     }
     @PostMapping("/login")
-    public ResponseEntity<String> login (@RequestBody UserDTO userDTO){
+    public ResponseEntity<String> login (@Valid @RequestBody UserDTO userDTO){
         String token = userService.login(userDTO);
 
         return ResponseEntity.ok(token);
