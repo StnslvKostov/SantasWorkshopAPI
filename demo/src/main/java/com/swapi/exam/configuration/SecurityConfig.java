@@ -1,6 +1,6 @@
 package com.swapi.exam.configuration;
 
-import com.swapi.exam.Filter.JwtAuthFilter;
+import com.swapi.exam.filter.JwtAuthFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

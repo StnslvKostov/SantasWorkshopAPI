@@ -1,4 +1,4 @@
-package com.swapi.exam.Filter;
+package com.swapi.exam.filter;
 
 import com.swapi.exam.service.CustomUserDetailsService;
 import com.swapi.exam.service.JwtService;
