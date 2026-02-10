@@ -14,33 +14,32 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> handleValidation(
-            MethodArgumentNotValidException ex) {
-
+    public ResponseEntity<Map<String, String>> handleValidation(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
-
         ex.getBindingResult().getFieldErrors()
-                .forEach(error ->
-                        errors.put(
-                                error.getField(),
-                                error.getDefaultMessage()
-                        )
-                );
-
-        return ResponseEntity
-                .badRequest()
-                .body(errors);
+                .forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
+        return ResponseEntity.badRequest().body(errors);
     }
 
-    @ExceptionHandler({UsernameExistException.class, InvalidStatusException.class, ClassNotFoundException.class})
-    public ResponseEntity<Map<String, String>> handleBadRequest(
-            Exception ex) {
-
+    @ExceptionHandler({UsernameExistException.class, InvalidStatusException.class})
+    public ResponseEntity<Map<String, String>> handleBadRequest(RuntimeException ex) {
         Map<String, String> error = new HashMap<>();
         error.put("message", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
 
-        return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body(error);
+    @ExceptionHandler(ClassNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleNotFound(ClassNotFoundException ex) {
+        Map<String, String> error = new HashMap<>();
+        error.put("message", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Map<String, String>> handleGeneric(Exception ex) {
+        Map<String, String> error = new HashMap<>();
+        error.put("message", "Unexpected error occurred");
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
     }
 }
+
