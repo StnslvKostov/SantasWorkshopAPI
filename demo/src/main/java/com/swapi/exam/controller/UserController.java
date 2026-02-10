@@ -17,17 +17,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     @Autowired
     UserService userService;
-    @PostMapping("/register")
-    public ResponseEntity<User> register (@Valid @RequestBody UserDTO userDTO){
 
-        try{
-            return ResponseEntity.status(HttpStatus.CREATED).body(userService.register(userDTO));
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+    @PostMapping("/register")
+    public ResponseEntity<User> register(@Valid @RequestBody UserDTO userDTO) {
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.register(userDTO));
     }
+
     @PostMapping("/login")
-    public ResponseEntity<String> login (@Valid @RequestBody UserDTO userDTO){
+    public ResponseEntity<String> login(@Valid @RequestBody UserDTO userDTO) {
         String token = userService.login(userDTO);
 
         return ResponseEntity.ok(token);

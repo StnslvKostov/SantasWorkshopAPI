@@ -14,7 +14,7 @@ public class UserDTO {
     @Pattern(regexp = "^[a-zA-Z0-9._-]+$", message = "Username should contain 1 CL, and no intervals.")
     private String username;
     @NotBlank
-    @Size(min = 8)
+    @Size(min = 8, max = 20, message = "Password should be between 8&20 chars.")
     @Pattern(regexp = "^(?=.*[A-Z])(?=.*\\d).+$", message = "Password must contain min 8 chars, 1CL and 1 number.")
     private String password;
 

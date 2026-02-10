@@ -1,5 +1,6 @@
 package com.swapi.exam.service;
 
+import com.swapi.exam.exception.InvalidStatusException;
 import com.swapi.exam.model.DTO.DeliveryDTO;
 import com.swapi.exam.model.Delivery;
 import com.swapi.exam.model.Gift;
@@ -33,7 +34,7 @@ public class DeliveryService {
         for (long giftId : deliveryDTO.getGiftIds()) {
             Gift gift = giftService.getGiftById(giftId);
             if (gift.getGiftStatus() != GiftStatusEnum.LOADED && gift.getGiftStatus() != GiftStatusEnum.READY) {
-                throw new ClassNotFoundException();
+                throw new InvalidStatusException("Gift status unavailable.");
             }
             giftService.updateGiftStatus(giftId, GiftStatusEnum.LOADED);
 
@@ -44,10 +45,10 @@ public class DeliveryService {
     public List<Delivery> getAllDeliveries(){
         return deliveryRepository.findAll();
     }
-    public void updateDeliveryStatus(long id, DeliveryDTO deliveryDTO) throws IllegalArgumentException{
+    public void updateDeliveryStatus(long id, DeliveryDTO deliveryDTO) throws InvalidStatusException{
         Delivery delivery = deliveryRepository.findById(id).get();
         if(delivery.getDeliveryStatus() == DeliveryStatusEnum.DELIVERED && deliveryDTO.getDeliveryStatus() == DeliveryStatusEnum.PLANNED){
-            throw new IllegalArgumentException();
+            throw new InvalidStatusException("Delivery status unavailable.");
         }
         delivery.setDeliveryStatus(deliveryDTO.getDeliveryStatus());
         if(delivery.getDeliveryStatus() == DeliveryStatusEnum.DELIVERED){

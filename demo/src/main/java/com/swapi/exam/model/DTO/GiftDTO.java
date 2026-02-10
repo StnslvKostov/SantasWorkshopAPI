@@ -2,18 +2,32 @@ package com.swapi.exam.model.DTO;
 
 import com.swapi.exam.util.enums.CategoryEnum;
 import com.swapi.exam.util.enums.GiftStatusEnum;
-import jakarta.persistence.Entity;
-import lombok.*;
+import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GiftDTO {
+
     private Long id;
+
+    @NotBlank(message = "Gift name is required")
+    @Size(min = 2, max = 20, message = "Gift name must be between 2 and 20 characters")
     private String name;
+
+    @NotNull(message = "Category is required")
     private CategoryEnum category;
+
+    @NotNull(message = "Target age is required")
+    @Min(value = 0, message = "Target age cannot be negative")
+    @Max(value = 18, message = "Target age cannot be greater than 18")
     private Integer targetAge;
+
+    @NotNull(message = "Wrapped flag is required")
     private boolean isWrapped;
+
+    @NotNull(message = "Gift status is required")
     private GiftStatusEnum giftStatus;
 
     public Long getId() {
@@ -63,5 +77,4 @@ public class GiftDTO {
     public void setGiftStatus(GiftStatusEnum giftStatus) {
         this.giftStatus = giftStatus;
     }
-
 }

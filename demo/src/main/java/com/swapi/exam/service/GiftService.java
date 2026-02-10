@@ -72,7 +72,7 @@ public class GiftService {
         }
     }
     public Gift getGiftById(long id) throws ClassNotFoundException {
-        return giftRepository.findById(id).orElseThrow(ClassNotFoundException::new);
+        return giftRepository.findById(id).orElseThrow(() -> new ClassNotFoundException("Gift not found"));
     }
     public Gift updateGiftByID(long id, GiftDTO giftDTO) throws ClassNotFoundException {
         Gift updateGift = getGiftById(id);

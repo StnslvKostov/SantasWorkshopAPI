@@ -1,5 +1,6 @@
 package com.swapi.exam.service;
 
+import com.swapi.exam.exception.InvalidStatusException;
 import com.swapi.exam.model.DTO.ElfDTO;
 import com.swapi.exam.model.DTO.GiftDTO;
 import com.swapi.exam.model.Elf;
@@ -35,7 +36,7 @@ public class ElfService {
         return elfRepository.findAll();
     }
     public Elf getElfById(long id) throws ClassNotFoundException{
-        return elfRepository.findById(id).orElseThrow(ClassNotFoundException::new);
+        return elfRepository.findById(id).orElseThrow(() -> new ClassNotFoundException("Elf not found"));
     }
     public void deleteElf(long id){
         elfRepository.deleteById(id);
@@ -44,7 +45,7 @@ public class ElfService {
         Elf elf = getElfById(elfId);
         Gift gift = giftService.getGiftById(giftId);
         if(gift.getGiftStatus()== GiftStatusEnum.DELIVERED){
-            throw new IllegalArgumentException();
+            throw new InvalidStatusException("Gift already delivered.");
         }
         elf.getAssignedGiftIds().add(giftId);
         return elfRepository.save(elf);

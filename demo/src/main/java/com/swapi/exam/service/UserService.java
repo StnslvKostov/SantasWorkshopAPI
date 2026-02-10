@@ -1,5 +1,6 @@
 package com.swapi.exam.service;
 
+import com.swapi.exam.exception.UsernameExistException;
 import com.swapi.exam.model.DTO.UserDTO;
 import com.swapi.exam.model.User;
 import com.swapi.exam.repository.UserRepository;
@@ -29,7 +30,7 @@ public class UserService {
 
     public User register(UserDTO dto) {
         if (userRepository.existsByUsername(dto.getUsername())) {
-            throw new RuntimeException("Username already exists");
+            throw new UsernameExistException();
         }
         User user = new User();
         user.setUsername(dto.getUsername());
